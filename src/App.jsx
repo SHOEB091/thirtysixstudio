@@ -7,6 +7,16 @@ import WhatWeDo from "./components/WhatWeDo";
 import OurServices from "./components/OurServices";
 import ServiceAccordion from "./components/ServiceAccordion";
 import Talk from "./components/Talk";
+import WhoWeAre from "./components/WhoWeAre";
+import AdvanceAnimation from "./components/AdvanceAnimation";
+import StudioSection from "./components/StudioSection";
+import ParallaxPage from "./components/ParallaxPage";
+import CommunityProjects from "./components/CommunityProjects";
+import TalentPage from "./components/TalentPage";
+import RolesOpen from "./components/RolesOpen";
+
+
+
 
 const App = () => {
   return (
@@ -19,6 +29,13 @@ const App = () => {
       <OurServices/>
       <ServiceAccordion/>
       <Talk/>
+      <WhoWeAre/>
+      <AdvanceAnimation/>
+      <StudioSection/>
+      <ParallaxPage/>
+      <CommunityProjects/>
+      <TalentPage/>
+      <RolesOpen/>
     </div>
   );
 };

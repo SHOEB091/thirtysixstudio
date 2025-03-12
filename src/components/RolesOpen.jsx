@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Plus, Minus, Sun, Moon } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 const services = [
-  { title: "CREATIVE", subcategories: ["Art direction", "Creative direction"] },
-  { title: "DESIGN", subcategories: ["UX/UI Design", "Digital Design", "Web Design", "3D Design", "Interactive Design", "Illustration Design", "Graphic Design"] },
-  { title: "ANIMATION", subcategories: ["2D Animation", "3D Animation"] },
-  { title: "TECHNOLOGY", subcategories: ["Web Development", "App Development"] },
-  { title: "PROJECT DELIVERY", subcategories: ["Agile Management", "Product Strategy"] },
-  { title: "EXAMPLE PRODUCTS", subcategories: ["Prototypes", "Case Studies"] },
+  {
+    title: "Roles Open",
+    subcategories: [
+      "Project Managers",
+      "Digital Producers",
+      "Designers",
+      "Illustrators",
+      "Animators",
+      "3D Artists",
+      "Motion Designers",
+      "Developers and Coders",
+      "Creative Technologists",
+      "Sound Engineers",
+    ],
+  },
 ];
 
-const ServiceAccordion = () => {
+const RolesOpen = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
 
@@ -31,7 +40,6 @@ const ServiceAccordion = () => {
 
   return (
     <div className="min-h-[50vh] bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
-
       {/* Accordion Section */}
       <div className="w-full max-w-3xl mx-auto py-10">
         {services.map((service, index) => (
@@ -60,9 +68,19 @@ const ServiceAccordion = () => {
               className="overflow-hidden px-6"
             >
               {service.subcategories.map((sub, subIndex) => (
-                <p key={subIndex} className="py-2 text-gray-700 dark:text-gray-300 transition-colors duration-300">
+                <motion.div
+                  key={subIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: subIndex * 0.1, duration: 0.3 }}
+                  whileHover={{ scale: 1.05, opacity: 0.9 }}
+                  className="py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300"
+                >
                   {sub}
-                </p>
+                  {subIndex !== service.subcategories.length - 1 && (
+                    <div className="w-full border-b border-gray-400 dark:border-gray-600 my-2"></div>
+                  )}
+                </motion.div>
               ))}
             </motion.div>
           </div>
@@ -72,4 +90,4 @@ const ServiceAccordion = () => {
   );
 };
 
-export default ServiceAccordion;
+export default RolesOpen;
