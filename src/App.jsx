@@ -10,7 +10,7 @@ import ServiceAccordion from "./components/ServiceAccordion";
 import WhoWeAre from "./components/WhoWeAre";
 import AdvanceAnimation from "./components/AdvanceAnimation";
 import StudioSection from "./components/StudioSection";
-import ParallaxPage from "./components/ParallaxPage";
+
 import CommunityProjects from "./components/CommunityProjects";
 import TalentPage from "./components/TalentPage";
 import RolesOpen from "./components/RolesOpen";
@@ -18,6 +18,7 @@ import ClientsSection from "./components/ClientsSection";
 import ContactForm from "./components/ContactForm";
 import SpicyCTA from "./components/SpicyCta";
 import Footer from "./components/Footer";
+import HowWeGiveback from "./components/HowWeGiveback";
 
 
 
@@ -36,7 +37,7 @@ const App = () => {
       <WhoWeAre/>
       <AdvanceAnimation/>
       <StudioSection/>
-      <ParallaxPage/>
+      <HowWeGiveback/>
       <CommunityProjects/>
       <TalentPage/>
       <RolesOpen/>
