@@ -76,7 +76,7 @@ const RolesOpen = () => {
                   className="relative group py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300 border-b border-gray-400 dark:border-gray-600"
                 >
                   <span
-                    className="relative z-10 block text-lg font-medium transition-all duration-300 group-hover:translate-y-[-5px] group-hover:text-black dark:group-hover:text-white"
+                    className="relative z-10 block text-lg font-medium transition-all duration-300 group-hover:translate-y-[-5px] group-hover:text-white dark:group-hover:text-black"
                   >
                     {sub}
                   </span>

@@ -6,7 +6,7 @@ import AnimatedText from "./components/AnimatedText";
 import WhatWeDo from "./components/WhatWeDo";
 import OurServices from "./components/OurServices";
 import ServiceAccordion from "./components/ServiceAccordion";
-import Talk from "./components/Talk";
+
 import WhoWeAre from "./components/WhoWeAre";
 import AdvanceAnimation from "./components/AdvanceAnimation";
 import StudioSection from "./components/StudioSection";
@@ -14,6 +14,10 @@ import ParallaxPage from "./components/ParallaxPage";
 import CommunityProjects from "./components/CommunityProjects";
 import TalentPage from "./components/TalentPage";
 import RolesOpen from "./components/RolesOpen";
+import ClientsSection from "./components/ClientsSection";
+import ContactForm from "./components/ContactForm";
+import SpicyCTA from "./components/SpicyCta";
+import Footer from "./components/Footer";
 
 
 
@@ -28,7 +32,7 @@ const App = () => {
       <WhatWeDo/>
       <OurServices/>
       <ServiceAccordion/>
-      <Talk/>
+
       <WhoWeAre/>
       <AdvanceAnimation/>
       <StudioSection/>
@@ -36,6 +40,10 @@ const App = () => {
       <CommunityProjects/>
       <TalentPage/>
       <RolesOpen/>
+      <ClientsSection/>
+      <ContactForm/>
+      <SpicyCTA/>
+      <Footer/>
     </div>
   );
 };
