@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import { Plus, Minus } from "lucide-react";
 
 const services = [
@@ -23,6 +23,7 @@ const services = [
 const RolesOpen = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
+  const containerRef = useRef(null);
 
   useEffect(() => {
     if (darkMode) {
@@ -38,8 +39,16 @@ const RolesOpen = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  useEffect(() => {
+    gsap.fromTo(
+      containerRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+    );
+  }, []);
+
   return (
-    <div className="min-h-[50vh] bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+    <div ref={containerRef} className="min-h-[50vh] bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
       {/* Accordion Section */}
       <div className="w-full max-w-3xl mx-auto py-10">
         {services.map((service, index) => (
@@ -49,8 +58,7 @@ const RolesOpen = () => {
               onClick={() => toggleAccordion(index)}
             >
               {service.title}
-              <motion.div
-                animate={{ rotate: openIndex === index ? 180 : 0 }}
+              <div
                 className={`w-8 h-8 flex items-center justify-center border rounded-full transition-colors duration-300 ${
                   openIndex === index
                     ? "bg-black text-white dark:bg-white dark:text-black"
@@ -58,31 +66,26 @@ const RolesOpen = () => {
                 }`}
               >
                 {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
-              </motion.div>
+              </div>
             </button>
 
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: openIndex === index ? "auto" : 0, opacity: openIndex === index ? 1 : 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden px-6"
-            >
+            <div className={`overflow-hidden transition-all duration-300 ${openIndex === index ? "h-auto" : "h-0"}`}>
               {service.subcategories.map((sub, subIndex) => (
-                <motion.div
+                <div
                   key={subIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: subIndex * 0.1, duration: 0.3 }}
-                  whileHover={{ scale: 1.05, opacity: 0.9 }}
-                  className="py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300"
+                  className="relative group py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300 border-b border-gray-400 dark:border-gray-600"
                 >
-                  {sub}
-                  {subIndex !== service.subcategories.length - 1 && (
-                    <div className="w-full border-b border-gray-400 dark:border-gray-600 my-2"></div>
-                  )}
-                </motion.div>
+                  <span
+                    className="relative z-10 block text-lg font-medium transition-all duration-300 group-hover:translate-y-[-5px] group-hover:text-black dark:group-hover:text-white"
+                  >
+                    {sub}
+                  </span>
+                  <span
+                    className="absolute left-0 bottom-0 h-full w-full bg-black dark:bg-white transform scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300"
+                  ></span>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
