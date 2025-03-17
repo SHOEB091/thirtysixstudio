@@ -17,8 +17,8 @@ const AnimatedCursor = () => {
       gsap.to(cursor, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.3,
-        ease: "power3.out",
+        duration: 0.6, // Slower movement
+        ease: "power4.out", // Smooth easing
       });
     };
 
@@ -27,15 +27,15 @@ const AnimatedCursor = () => {
     document.querySelectorAll("[data-follower-text]").forEach((item) => {
       item.addEventListener("mouseenter", (e) => {
         cursorText.innerHTML = item.dataset.followerText || "Click!";
-        gsap.to(cursor, { width: "250px", height: "250px", opacity: 1, duration: 0.5 });
-        gsap.to(cursorInner, { width: "250px", height: "250px", opacity: 1, duration: 0.4 });
-        gsap.to(cursorText, { opacity: 1, duration: 0.3 });
+        gsap.to(cursor, { width: "250px", height: "250px", opacity: 1, duration: 0.8 });
+        gsap.to(cursorInner, { width: "250px", height: "250px", opacity: 1, duration: 0.7 });
+        gsap.to(cursorText, { opacity: 1, duration: 0.5 });
       });
 
       item.addEventListener("mouseleave", () => {
-        gsap.to(cursor, { width: "20px", height: "20px", duration: 0.2 });
-        gsap.to(cursorInner, { width: 0, height: 0, opacity: 0, duration: 0.2 });
-        gsap.to(cursorText, { opacity: 0, duration: 0.2 });
+        gsap.to(cursor, { width: "20px", height: "20px", duration: 0.4 });
+        gsap.to(cursorInner, { width: 0, height: 0, opacity: 0, duration: 0.4 });
+        gsap.to(cursorText, { opacity: 0, duration: 0.3 });
       });
     });
 
@@ -46,8 +46,14 @@ const AnimatedCursor = () => {
 
   return (
     <div className="pointer-events-none fixed top-0 left-0 z-[9999]">
-      <div ref={cursorRef} className="w-5 h-5 bg-red-500 rounded-full opacity-1">
-        <div ref={cursorInnerRef} className="absolute bg-white rounded-full opacity-0"></div>
+      <div
+        ref={cursorRef}
+        className="w-5 h-5 bg-red-500 rounded-full opacity-1 will-change-transform"
+      >
+        <div
+          ref={cursorInnerRef}
+          className="absolute bg-white rounded-full opacity-0 will-change-transform"
+        ></div>
         <span ref={cursorTextRef} className="absolute text-white text-sm font-medium opacity-0"></span>
       </div>
     </div>

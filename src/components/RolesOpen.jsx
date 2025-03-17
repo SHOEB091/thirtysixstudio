@@ -2,26 +2,23 @@ import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Plus, Minus } from "lucide-react";
 
-const services = [
-  {
-    title: "Roles Open",
-    subcategories: [
-      "Project Managers",
-      "Digital Producers",
-      "Designers",
-      "Illustrators",
-      "Animators",
-      "3D Artists",
-      "Motion Designers",
-      "Developers and Coders",
-      "Creative Technologists",
-      "Sound Engineers",
-    ],
-  },
+const roles = [
+  "Project Managers",
+  "Digital Producers",
+  "Designers",
+  "Illustrators",
+  "Animators",
+  "3D Artists",
+  "Motion Designers",
+  "Developers and Coders",
+  "Creative Technologists",
+  "Sound Engineers",
 ];
 
+const hoverSound = "/public/hover1.mp3"; // Correct path for Vite public folder
+
 const RolesOpen = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [open, setOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
   const containerRef = useRef(null);
 
@@ -35,10 +32,6 @@ const RolesOpen = () => {
     }
   }, [darkMode]);
 
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   useEffect(() => {
     gsap.fromTo(
       containerRef.current,
@@ -47,49 +40,53 @@ const RolesOpen = () => {
     );
   }, []);
 
-  return (
-    <div ref={containerRef} className="min-h-[50vh] bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 px-4 sm:px-6">
-      {/* Accordion Section */}
-      <div className="w-full max-w-3xl mx-auto py-8 sm:py-10">
-        {services.map((service, index) => (
-          <div key={index} className="border-b border-black dark:border-white transition-colors duration-300">
-            <button
-              className="w-full flex justify-between items-center py-3 sm:py-4 px-4 sm:px-6 text-lg sm:text-xl font-semibold"
-              onClick={() => toggleAccordion(index)}
-            >
-              {service.title}
-              <div
-                className={`w-8 h-8 flex items-center justify-center border rounded-full transition-colors duration-300 ${
-                  openIndex === index
-                    ? "bg-black text-white dark:bg-white dark:text-black"
-                    : "border-black dark:border-white"
-                }`}
-              >
-                {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
-              </div>
-            </button>
+  const toggleAccordion = () => {
+    setOpen(!open);
+  };
 
+  const playHoverSound = () => {
+    const audio = new Audio(hoverSound);
+    audio.play();
+  };
+
+  return (
+    <section
+      ref={containerRef}
+      className="bg-white dark:bg-black text-black dark:text-white px-8 py-16 transition-colors duration-300"
+    >
+      <div className="max-w-5xl mx-auto">
+        {/* Header + Toggle button */}
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-lg font-semibold">Roles Open</h3>
+          <button
+            onClick={toggleAccordion}
+            className="flex items-center gap-2 px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-full text-sm hover:bg-gray-900 dark:hover:bg-gray-100 transition"
+          >
+            {open ? <Minus size={16} /> : <Plus size={16} />} {open ? "Close" : "Add Role"}
+          </button>
+        </div>
+
+        {/* Roles List Accordion */}
+        <div
+          className={`overflow-hidden transition-all duration-500 border-t border-b border-black dark:border-white ${
+            open ? "max-h-[1000px] py-4" : "max-h-0"
+          }`}
+        >
+          {roles.map((role, index) => (
             <div
-              className={`overflow-hidden transition-all duration-300 ${
-                openIndex === index ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-              }`}
+              key={index}
+              onMouseEnter={playHoverSound}
+              className="relative group py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300 border-b border-gray-400 dark:border-gray-600 px-4"
             >
-              {service.subcategories.map((sub, subIndex) => (
-                <div
-                  key={subIndex}
-                  className="relative group py-2 sm:py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300 border-b border-gray-400 dark:border-gray-600"
-                >
-                  <span className="relative z-10 block text-base sm:text-lg font-medium transition-all duration-300 sm:group-hover:translate-y-[-5px] sm:group-hover:text-white dark:sm:group-hover:text-black">
-                    {sub}
-                  </span>
-                  <span className="absolute left-0 bottom-0 h-full w-full bg-black dark:bg-white transform scale-y-0 sm:group-hover:scale-y-100 origin-bottom transition-transform duration-300"></span>
-                </div>
-              ))}
+              <span className="relative z-10 block text-md font-medium transition-all duration-300 group-hover:-translate-y-1 group-hover:text-white dark:group-hover:text-black">
+                {role}
+              </span>
+              <span className="absolute left-0 bottom-0 h-full w-full bg-black dark:bg-white transform scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300" />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
