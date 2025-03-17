@@ -31,20 +31,12 @@ const OurServices = () => {
   const textRefs = useRef([]);
   const isInView = useInView(ref, { margin: "-50px", triggerOnce: false });
 
-  // GSAP ScrollReveal effect
   useEffect(() => {
     const headingElement = headingRef.current;
-    
-    // Heading scroll reveal animation
     if (headingElement) {
       gsap.fromTo(
         headingElement,
-        { 
-          opacity: 0.1, 
-          y: 20,
-          rotate: 2,
-          transformOrigin: '0% 50%'
-        },
+        { opacity: 0.1, y: 20, rotate: 2, transformOrigin: "0% 50%" },
         {
           opacity: 1,
           y: 0,
@@ -55,26 +47,19 @@ const OurServices = () => {
             trigger: headingElement,
             start: "top bottom-=10%",
             end: "bottom center",
-            scrub: true
-          }
+            scrub: true,
+          },
         }
       );
     }
 
-    // Text paragraphs scroll reveal animation
-    textRefs.current.forEach((textElement, index) => {
+    textRefs.current.forEach((textElement) => {
       if (textElement) {
-        // Find all word spans within this paragraph
-        const words = textElement.querySelectorAll('.word-reveal');
-        
+        const words = textElement.querySelectorAll(".word-reveal");
         if (words.length > 0) {
           gsap.fromTo(
             words,
-            { 
-              opacity: 0.2,
-              y: 15,
-              filter: "blur(4px)" 
-            },
+            { opacity: 0.2, y: 15, filter: "blur(4px)" },
             {
               opacity: 1,
               y: 0,
@@ -86,8 +71,8 @@ const OurServices = () => {
                 trigger: textElement,
                 start: "top bottom-=10%",
                 end: "bottom center",
-                scrub: true
-              }
+                scrub: true,
+              },
             }
           );
         }
@@ -95,31 +80,28 @@ const OurServices = () => {
     });
 
     return () => {
-      // Clean up ScrollTrigger instances to prevent memory leaks
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   return (
-    <div className="w-full min-h-[50vh] flex items-center justify-center bg-[#faf7f5] dark:bg-black px-6 md:px-10 py-10">
-      <div className="w-full max-w-4xl flex flex-col items-start">
-        {/* Heading Section */}
+    <div className="w-full min-h-[50vh] flex items-center justify-center bg-[#faf7f5] dark:bg-black px-4 sm:px-6 md:px-10 py-10">
+      <div className="w-full max-w-4xl flex flex-col items-center sm:items-start text-center sm:text-left">
         <div className="text-left">
-          <h4 
+          <h4
             ref={headingRef}
-            className="text-sm font-semibold text-black dark:text-white tracking-wide uppercase"
+            className="text-xs sm:text-sm font-semibold text-black dark:text-white tracking-wide uppercase"
           >
             Our Services
           </h4>
         </div>
 
-        {/* Description Section with Scroll Animation */}
         <div ref={ref} className="w-full mt-6 flex flex-col gap-4">
           {descriptionLines.map((line, index) => (
             <motion.p
               key={index}
-              ref={el => textRefs.current[index] = el}
-              className="text-[32px] md:text-[36px] leading-[1.4] font-normal text-black dark:text-white"
+              ref={(el) => (textRefs.current[index] = el)}
+              className="text-[20px] sm:text-[24px] md:text-[32px] leading-[1.4] font-normal text-black dark:text-white"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.2, ease: "easeOut" }}
@@ -127,7 +109,7 @@ const OurServices = () => {
               {line.split(" ").map((word, wordIndex) => (
                 <motion.span
                   key={wordIndex}
-                  className="inline-block mr-2 word-reveal" // Added word-reveal class for GSAP
+                  className="inline-block mr-1 sm:mr-2 word-reveal"
                   custom={wordIndex}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
