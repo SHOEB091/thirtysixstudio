@@ -10,6 +10,9 @@ const Home = () => {
   const circleTextRef = useRef(null);
 
   useEffect(() => {
+    document.documentElement.style.overflowX = "hidden";
+    document.body.style.overflowX = "hidden";
+
     const scroll = new LocomotiveScroll({
       el: scrollRef.current,
       smooth: true,
@@ -36,7 +39,7 @@ const Home = () => {
     <section
       ref={scrollRef}
       data-scroll-container
-      className="min-h-screen flex flex-col lg:flex-row items-center justify-center bg-lightBg dark:bg-darkBg transition-all duration-300 px-4 sm:px-8 lg:px-[200px] gap-4 sm:gap-6 lg:gap-12"
+      className="min-h-screen w-full flex flex-col lg:flex-row items-center justify-center bg-lightBg dark:bg-darkBg transition-all duration-300 px-4 sm:px-8 lg:px-[200px] gap-4 sm:gap-6 lg:gap-12 overflow-hidden"
     >
       {/* Left Section - Text */}
       <div
