@@ -52,14 +52,8 @@ const ServiceAccordion = () => {
               }`}
             >
               {service.subcategories.map((sub, subIndex) => (
-                <div
-                  key={subIndex}
-                  className="relative group py-2 sm:py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300 border-b border-gray-400 dark:border-gray-600"
-                >
-                  <span className="relative z-10 block text-sm sm:text-lg font-medium transition-all duration-300 sm:group-hover:translate-y-[-5px] sm:group-hover:text-white dark:sm:group-hover:text-black">
-                    {sub}
-                  </span>
-                  <span className="absolute left-0 bottom-0 h-full w-full bg-black dark:bg-white transform scale-y-0 sm:group-hover:scale-y-100 origin-bottom transition-transform duration-300"></span>
+                <div key={subIndex} className="pl-6 sm:pl-8 py-2 sm:py-3 text-gray-700 dark:text-gray-300 transition-colors duration-300">
+                  <span className="block text-sm sm:text-base font-medium">{sub}</span>
                 </div>
               ))}
             </div>
